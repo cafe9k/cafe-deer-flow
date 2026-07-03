@@ -335,6 +335,29 @@ deploy.sh start              # start pre-built images
 deploy.sh down
 ```
 
+To deploy images built by GitHub Actions and published to GHCR, push to `main`,
+push a `v*` tag, or run the `Publish Containers` workflow manually. Then set the
+image namespace on your Docker host:
+
+```bash
+DEER_FLOW_USE_GHCR=1
+DEER_FLOW_IMAGE_NAMESPACE=OWNER/REPO
+DEER_FLOW_IMAGE_TAG=latest   # or a tag such as v1.2.3
+```
+
+Run `make up` as usual. The deploy script pulls:
+
+```text
+ghcr.io/OWNER/REPO-backend:TAG
+ghcr.io/OWNER/REPO-frontend:TAG
+```
+
+For private GitHub packages, log in first with a token that can read packages:
+
+```bash
+docker login ghcr.io -u GITHUB_USER
+```
+
 ### Advanced
 #### Sandbox Mode
 

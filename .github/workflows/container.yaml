@@ -1,7 +1,11 @@
 name: Publish Containers
 
 on:
+  workflow_dispatch:
   push:
+    branches:
+      - main
+      - dev
     tags:
       - "v*"
 
@@ -43,6 +47,8 @@ jobs:
           context: .
           file: backend/Dockerfile
           push: true
+          build-args: |
+            UV_IMAGE=astral/uv:0.7.20
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
@@ -89,6 +95,7 @@ jobs:
         with:
           context: .
           file: frontend/Dockerfile
+          target: prod
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

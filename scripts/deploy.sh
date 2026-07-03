@@ -3,12 +3,13 @@
 # deploy.sh - Build, start, or stop DeerFlow production services
 #
 # Commands:
-#   deploy.sh                    — build + start
+#   deploy.sh                    — build + start, or pull + start when DEER_FLOW_USE_GHCR=1
 #   deploy.sh build              — build all images (mode-agnostic)
 #   deploy.sh start              — start from pre-built images
 #   deploy.sh down               — stop and remove containers
 #
 # Sandbox mode (local / aio / provisioner) is auto-detected from config.yaml.
+# Set DEER_FLOW_USE_GHCR=1 to pull published frontend/gateway images from GHCR.
 #
 # Examples:
 #   deploy.sh                    # build + start
@@ -72,6 +73,52 @@ load_uv_extras_from_dotenv() {
 }
 
 load_uv_extras_from_dotenv
+
+dotenv_value() {
+    local key="$1"
+    local line=""
+    local value=""
+
+    [ -f "$ENV_FILE" ] || return 0
+
+    line="$(grep -E "^[[:space:]]*(export[[:space:]]+)?${key}[[:space:]]*=" "$ENV_FILE" | tail -n 1 || true)"
+    [ -n "$line" ] || return 0
+
+    value="${line#*=}"
+    value="${value%$'\r'}"
+    value="${value#"${value%%[![:space:]]*}"}"
+    value="${value%"${value##*[![:space:]]}"}"
+    case "$value" in
+        \"*\") value="${value#\"}"; value="${value%\"}" ;;
+        \'*\') value="${value#\'}"; value="${value%\'}" ;;
+    esac
+    printf '%s' "$value"
+}
+
+load_dotenv_default() {
+    local key="$1"
+    local current=""
+    local value=""
+
+    eval "current=\${$key:-}"
+    [ -z "$current" ] || return 0
+
+    value="$(dotenv_value "$key")"
+    [ -n "$value" ] || return 0
+
+    export "$key=$value"
+}
+
+for _deer_flow_var in \
+    DEER_FLOW_USE_GHCR \
+    DEER_FLOW_IMAGE_REGISTRY \
+    DEER_FLOW_IMAGE_NAMESPACE \
+    DEER_FLOW_IMAGE_TAG \
+    DEER_FLOW_FRONTEND_IMAGE \
+    DEER_FLOW_GATEWAY_IMAGE; do
+    load_dotenv_default "$_deer_flow_var"
+done
+unset _deer_flow_var
 
 # ── Colors ────────────────────────────────────────────────────────────────────
 
@@ -292,6 +339,12 @@ fi
 # Build produces mode-agnostic images. No --gateway or sandbox detection needed.
 
 if [ "$CMD" = "build" ]; then
+    if [ "${DEER_FLOW_USE_GHCR:-}" = "1" ]; then
+        echo -e "${RED}✗ deploy.sh build is for local image builds and cannot run with DEER_FLOW_USE_GHCR=1.${NC}" >&2
+        echo "  Unset DEER_FLOW_USE_GHCR, or run deploy.sh/start/make up to pull GHCR images." >&2
+        exit 1
+    fi
+
     echo "=========================================="
     echo "  DeerFlow — Building Images"
     echo "=========================================="
@@ -351,11 +404,40 @@ if [ "$sandbox_mode" = "aio" ]; then
     COMPOSE_CMD+=(-f "$DOCKER_DIR/docker-compose.dood.yaml")
 fi
 
+# ── GHCR image deployment ────────────────────────────────────────────────────
+
+if [ "${DEER_FLOW_USE_GHCR:-}" = "1" ]; then
+    export DEER_FLOW_IMAGE_REGISTRY="${DEER_FLOW_IMAGE_REGISTRY:-ghcr.io}"
+    export DEER_FLOW_IMAGE_TAG="${DEER_FLOW_IMAGE_TAG:-latest}"
+
+    if [ -z "${DEER_FLOW_FRONTEND_IMAGE:-}" ] || [ -z "${DEER_FLOW_GATEWAY_IMAGE:-}" ]; then
+        if [ -z "${DEER_FLOW_IMAGE_NAMESPACE:-}" ]; then
+            echo -e "${RED}✗ DEER_FLOW_USE_GHCR=1 requires DEER_FLOW_IMAGE_NAMESPACE.${NC}" >&2
+            echo "  Example: DEER_FLOW_IMAGE_NAMESPACE=owner/repo" >&2
+            echo "  Or set DEER_FLOW_FRONTEND_IMAGE and DEER_FLOW_GATEWAY_IMAGE explicitly." >&2
+            exit 1
+        fi
+        export DEER_FLOW_FRONTEND_IMAGE="${DEER_FLOW_FRONTEND_IMAGE:-${DEER_FLOW_IMAGE_REGISTRY}/${DEER_FLOW_IMAGE_NAMESPACE}-frontend:${DEER_FLOW_IMAGE_TAG}}"
+        export DEER_FLOW_GATEWAY_IMAGE="${DEER_FLOW_GATEWAY_IMAGE:-${DEER_FLOW_IMAGE_REGISTRY}/${DEER_FLOW_IMAGE_NAMESPACE}-backend:${DEER_FLOW_IMAGE_TAG}}"
+    fi
+
+    echo -e "${BLUE}Image source: GHCR${NC}"
+    echo -e "${GREEN}✓ Frontend image: $DEER_FLOW_FRONTEND_IMAGE${NC}"
+    echo -e "${GREEN}✓ Gateway image:  $DEER_FLOW_GATEWAY_IMAGE${NC}"
+    COMPOSE_CMD+=(-f "$DOCKER_DIR/docker-compose.ghcr.yaml")
+fi
+
 echo ""
 
 # ── Start / Up ───────────────────────────────────────────────────────────────
 
-if [ "$CMD" = "start" ]; then
+if [ "${DEER_FLOW_USE_GHCR:-}" = "1" ]; then
+    echo "Pulling GHCR images and starting containers..."
+    echo ""
+    "${COMPOSE_CMD[@]}" pull frontend gateway
+    # shellcheck disable=SC2086
+    "${COMPOSE_CMD[@]}" up -d --remove-orphans $services
+elif [ "$CMD" = "start" ]; then
     echo "Starting containers (no rebuild)..."
     echo ""
     # shellcheck disable=SC2086

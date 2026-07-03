@@ -234,6 +234,29 @@ make up     # 构建镜像并启动全部生产服务
 make down   # 停止并移除容器
 ```
 
+如果要使用 GitHub Actions 编译并发布到 GHCR 的镜像，先推送到 `main`、推送
+`v*` tag，或手动运行 `Publish Containers` workflow。然后在部署机器的 `.env`
+里配置：
+
+```bash
+DEER_FLOW_USE_GHCR=1
+DEER_FLOW_IMAGE_NAMESPACE=OWNER/REPO
+DEER_FLOW_IMAGE_TAG=latest   # 也可以使用 v1.2.3 这样的 tag
+```
+
+之后照常运行 `make up`，脚本会拉取并启动：
+
+```text
+ghcr.io/OWNER/REPO-backend:TAG
+ghcr.io/OWNER/REPO-frontend:TAG
+```
+
+如果 GitHub Packages 是私有的，需要先在服务器上登录 GHCR：
+
+```bash
+docker login ghcr.io -u GITHUB_USER
+```
+
 > [!NOTE]
 > 当前 Agent 运行时嵌入在 Gateway 中运行，`/api/langgraph/*` 会由 nginx 重写到 Gateway 的 LangGraph-compatible API。
 

@@ -1,0 +1,11 @@
+# Optional production overlay for running published GHCR images.
+# Enabled by scripts/deploy.sh when DEER_FLOW_USE_GHCR=1.
+
+services:
+  frontend:
+    image: ${DEER_FLOW_FRONTEND_IMAGE:?Set DEER_FLOW_FRONTEND_IMAGE or DEER_FLOW_IMAGE_NAMESPACE}
+    pull_policy: always
+
+  gateway:
+    image: ${DEER_FLOW_GATEWAY_IMAGE:?Set DEER_FLOW_GATEWAY_IMAGE or DEER_FLOW_IMAGE_NAMESPACE}
+    pull_policy: always
