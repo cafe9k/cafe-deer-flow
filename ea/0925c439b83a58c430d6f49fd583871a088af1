@@ -1,0 +1,77 @@
+frontend/src/components/workspace/report-compare/report-compare-page.tsx
+  s_3788a43fc4cd22::t_81f6dba8bfff62 1-2,9-128,130-177,179-258,260-261,263-272,277,282-341,343-365,367-371
+  s_3788a43fc4cd22::t_8691aa00a38e47 3-8,129,178,259,262,273-276,278-281,342,366
+frontend/src/components/workspace/workspace-nav-chat-list.tsx
+  s_3788a43fc4cd22::t_27c71e2a7b94d8 3,78-90
+backend/app/gateway/app.py
+  s_3788a43fc4cd22::t_1255b3f1e1409a 27,326-329,410-411
+backend/app/gateway/report_compare/job_store.py
+  s_3788a43fc4cd22::t_d970a6eb830ac8 1-18
+backend/app/gateway/report_compare/analyzer.py
+  s_3788a43fc4cd22::t_d970a6eb830ac8 1-136
+frontend/src/core/i18n/locales/en-US.ts
+  s_3788a43fc4cd22::t_27c71e2a7b94d8 190,251-274
+backend/tests/test_report_compare_service.py
+  s_3788a43fc4cd22::t_7aacd8769ecaf8 1-6,12-61,63-93,95-120
+  s_3788a43fc4cd22::t_e032dfdf0fab1c 7-11,62,94
+backend/app/gateway/report_compare/__init__.py
+  s_3788a43fc4cd22::t_f675af5e12e6ad 1-68
+frontend/src/core/i18n/locales/zh-CN.ts
+  s_3788a43fc4cd22::t_27c71e2a7b94d8 183,237-260
+backend/app/gateway/report_compare/parser.py
+  s_3788a43fc4cd22::t_d970a6eb830ac8 1-156
+backend/AGENTS.md
+  s_3788a43fc4cd22::t_0bd9d8e80d0c27 294
+frontend/src/core/i18n/locales/types.ts
+  s_3788a43fc4cd22::t_27c71e2a7b94d8 131,179-201
+AGENTS.md
+  s_3788a43fc4cd22::t_0bd9d8e80d0c27 49
+frontend/src/core/report-compare/index.ts
+  s_3788a43fc4cd22::t_81f6dba8bfff62 1-3
+frontend/src/core/report-compare/types.ts
+  s_3788a43fc4cd22::t_81f6dba8bfff62 1-103
+README_zh.md
+  s_3788a43fc4cd22::t_1ac6ed51fde784 483-484
+backend/app/gateway/routers/__init__.py
+  s_3788a43fc4cd22::t_1255b3f1e1409a 1,3
+backend/app/gateway/report_compare/locator.py
+  s_3788a43fc4cd22::t_d970a6eb830ac8 1-203
+frontend/src/components/workspace/workspace-container.tsx
+  s_3788a43fc4cd22::t_27c71e2a7b94d8 136
+backend/app/gateway/report_compare/models.py
+  s_3788a43fc4cd22::t_d970a6eb830ac8 1-109
+README.md
+  s_3788a43fc4cd22::t_0bd9d8e80d0c27 626-627
+frontend/AGENTS.md
+  s_3788a43fc4cd22::t_36ecd618522785 49,56
+frontend/src/core/report-compare/api.ts
+  s_3788a43fc4cd22::t_81f6dba8bfff62 1-58
+frontend/src/app/workspace/report-compare/page.tsx
+  s_3788a43fc4cd22::t_81f6dba8bfff62 1-5
+skills/public/midscene-report-compare/SKILL.md
+  s_3788a43fc4cd22::t_1255b3f1e1409a 1-59
+backend/app/gateway/report_compare/html_renderer.py
+  s_3788a43fc4cd22::t_4fd343f5c11f11 1-18,20-56,58-89
+  s_3788a43fc4cd22::t_d970a6eb830ac8 19,57
+frontend/src/core/report-compare/hooks.ts
+  s_3788a43fc4cd22::t_81f6dba8bfff62 1-25
+backend/app/gateway/routers/report_compare.py
+  s_3788a43fc4cd22::t_417bfdd8247c78 1-6,9-34
+  s_3788a43fc4cd22::t_e032dfdf0fab1c 7-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.29-trip",
+  "base_commit_sha": "ea0925c439b83a58c430d6f49fd583871a088af1",
+  "prompts": {},
+  "sessions": {
+    "s_3788a43fc4cd22": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f2722-a09c-7700-8e90-49633aff41a4",
+        "model": "gpt-5.5"
+      },
+      "human_author": "qingqing.zhang <qingqing.zhang@trip.com>"
+    }
+  }
+}
