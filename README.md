@@ -335,6 +335,29 @@ deploy.sh start              # start pre-built images
 deploy.sh down
 ```
 
+To deploy images built by GitHub Actions and published to GHCR, push to `main`,
+push a `v*` tag, or run the `Publish Containers` workflow manually. Then set the
+image namespace on your Docker host:
+
+```bash
+DEER_FLOW_USE_GHCR=1
+DEER_FLOW_IMAGE_NAMESPACE=OWNER/REPO
+DEER_FLOW_IMAGE_TAG=latest   # or a tag such as v1.2.3
+```
+
+Run `make up` as usual. The deploy script pulls:
+
+```text
+ghcr.io/OWNER/REPO-backend:TAG
+ghcr.io/OWNER/REPO-frontend:TAG
+```
+
+For private GitHub packages, log in first with a token that can read packages:
+
+```bash
+docker login ghcr.io -u GITHUB_USER
+```
+
 ### Advanced
 #### Sandbox Mode
 
@@ -622,6 +645,8 @@ Skills are loaded progressively — only when the task needs them, not all at on
 Users can explicitly activate an enabled skill for a single turn by starting the request with `/skill-name`, for example `/data-analysis analyze uploads/foo.csv`. DeerFlow loads that skill's `SKILL.md` as hidden current-turn context while leaving the base prompt limited to skill metadata. Slash activation respects disabled skills, custom-agent skill whitelists, and existing channel commands such as `/new` and `/help`.
 
 When you install `.skill` archives through the Gateway, DeerFlow accepts standard optional frontmatter metadata such as `version`, `author`, and `compatibility` instead of rejecting otherwise valid external skills.
+
+DeerFlow also includes a Midscene report comparison skill and workspace tool. Upload a compare zip or provide thread-local `/mnt/user-data` paths for successful and failed split reports, and Gateway generates a root-cause summary plus downloadable static HTML artifact.
 
 Tools follow the same philosophy. DeerFlow comes with a core toolset — web search, web fetch, rendered web capture, file operations, bash execution — and supports custom tools via MCP servers and Python functions. Swap anything. Add anything.
 

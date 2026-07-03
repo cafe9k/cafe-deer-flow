@@ -24,6 +24,7 @@ from app.gateway.routers import (
     memory,
     models,
     runs,
+    report_compare,
     skills,
     suggestions,
     thread_runs,
@@ -323,6 +324,10 @@ This gateway provides runtime endpoints for agent runs plus custom endpoints for
                 "description": "Upload and manage user files for threads",
             },
             {
+                "name": "report-compare",
+                "description": "Compare Midscene success/failure reports and generate diagnosis artifacts",
+            },
+            {
                 "name": "threads",
                 "description": "Manage DeerFlow thread-local filesystem data",
             },
@@ -401,6 +406,9 @@ This gateway provides runtime endpoints for agent runs plus custom endpoints for
 
     # Uploads API is mounted at /api/threads/{thread_id}/uploads
     app.include_router(uploads.router)
+
+    # Midscene Report Compare API is mounted at /api/threads/{thread_id}/report-compare
+    app.include_router(report_compare.router)
 
     # Thread cleanup API is mounted at /api/threads/{thread_id}
     app.include_router(threads.router)

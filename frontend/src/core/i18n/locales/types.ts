@@ -128,6 +128,7 @@ export interface Translations {
     chats: string;
     demoChats: string;
     agents: string;
+    reportCompare: string;
     agentsDisabledTooltip: string;
     channels: string;
   };
@@ -175,6 +176,29 @@ export interface Translations {
   breadcrumb: {
     workspace: string;
     chats: string;
+    reportCompare: string;
+  };
+
+  reportCompare: {
+    title: string;
+    description: string;
+    inputTitle: string;
+    compareArchive: string;
+    successArchive: string;
+    failureArchive: string;
+    optionsTitle: string;
+    modelAnalysis: string;
+    start: string;
+    running: string;
+    failed: string;
+    downloadHtml: string;
+    failedStep: string;
+    rootCause: string;
+    divergence: string;
+    repairSuggestions: string;
+    dataMetrics: string;
+    divergenceAnalysis: string;
+    modelAnalysisResult: string;
   };
 
   // Workspace

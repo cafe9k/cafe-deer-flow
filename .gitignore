@@ -60,3 +60,6 @@ config.yaml.bak
 /frontend/playwright-report/
 .gstack/
 .worktrees
+.gitnexus
+.understand-anything
+.understand
