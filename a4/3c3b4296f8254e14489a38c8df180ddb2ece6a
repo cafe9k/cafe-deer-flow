@@ -1,0 +1,23 @@
+.gitignore
+  s_3788a43fc4cd22::t_4276b1bf597107 63-65
+CLAUDE.md
+  s_3788a43fc4cd22::t_8e8ce4f521da76 6-49
+AGENTS.md
+  s_3788a43fc4cd22::t_8e8ce4f521da76 125-168
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.29-trip",
+  "base_commit_sha": "a43c3b4296f8254e14489a38c8df180ddb2ece6a",
+  "prompts": {},
+  "sessions": {
+    "s_3788a43fc4cd22": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f2722-a09c-7700-8e90-49633aff41a4",
+        "model": "gpt-5.5"
+      },
+      "human_author": "qingqing.zhang <qingqing.zhang@trip.com>"
+    }
+  }
+}
