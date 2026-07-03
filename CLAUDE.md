@@ -7,7 +7,7 @@ The repo's agent guidance lives in [AGENTS.md](AGENTS.md) so it is shared across
 <!-- gitnexus:start -->
 # GitNexus — Code Intelligence
 
-This project is indexed by GitNexus as **cafe-deer-flow** (35305 symbols, 55189 relationships, 300 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
+This project is indexed by GitNexus as **cafe-deer-flow** (36315 symbols, 65576 relationships, 300 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
 
 > If any GitNexus tool warns the index is stale, run `npx gitnexus analyze` in terminal first.
 
