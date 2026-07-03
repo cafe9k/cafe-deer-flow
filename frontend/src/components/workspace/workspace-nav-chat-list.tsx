@@ -1,6 +1,6 @@
 "use client";
 
-import { BotIcon, MessagesSquare } from "lucide-react";
+import { BotIcon, FileSearchIcon, MessagesSquare } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -74,6 +74,20 @@ export function WorkspaceNavChatList() {
               </TooltipContent>
             </Tooltip>
           )}
+        </SidebarMenuItem>
+        <SidebarMenuItem>
+          <SidebarMenuButton
+            isActive={pathname.startsWith("/workspace/report-compare")}
+            asChild
+          >
+            <Link
+              className="text-muted-foreground"
+              href="/workspace/report-compare"
+            >
+              <FileSearchIcon />
+              <span>{t.sidebar.reportCompare}</span>
+            </Link>
+          </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>
     </SidebarGroup>

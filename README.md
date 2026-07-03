@@ -623,6 +623,8 @@ Users can explicitly activate an enabled skill for a single turn by starting the
 
 When you install `.skill` archives through the Gateway, DeerFlow accepts standard optional frontmatter metadata such as `version`, `author`, and `compatibility` instead of rejecting otherwise valid external skills.
 
+DeerFlow also includes a Midscene report comparison skill and workspace tool. Upload a compare zip or provide thread-local `/mnt/user-data` paths for successful and failed split reports, and Gateway generates a root-cause summary plus downloadable static HTML artifact.
+
 Tools follow the same philosophy. DeerFlow comes with a core toolset — web search, web fetch, rendered web capture, file operations, bash execution — and supports custom tools via MCP servers and Python functions. Swap anything. Add anything.
 
 Gateway-generated follow-up suggestions now normalize both plain-string model output and block/list-style rich content before parsing the JSON array response, so provider-specific content wrappers do not silently drop suggestions.

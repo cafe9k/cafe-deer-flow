@@ -187,6 +187,7 @@ export const enUS: Translations = {
     recentChats: "Recent chats",
     demoChats: "Demo chats",
     agents: "Agents",
+    reportCompare: "Report Compare",
     agentsDisabledTooltip: "Feature not enabled",
   },
 
@@ -247,6 +248,30 @@ export const enUS: Translations = {
   breadcrumb: {
     workspace: "Workspace",
     chats: "Chats",
+    reportCompare: "Report Compare",
+  },
+
+  reportCompare: {
+    title: "Midscene Report Compare",
+    description:
+      "Upload success/failure report zip files or provide /mnt/user-data paths to generate divergence, root cause, and repair suggestions.",
+    inputTitle: "Report input",
+    compareArchive: "Compare directory zip",
+    successArchive: "Success report zip",
+    failureArchive: "Failure report zip",
+    optionsTitle: "Run options",
+    modelAnalysis: "Model-assisted analysis",
+    start: "Start compare",
+    running: "Comparing",
+    failed: "Compare failed",
+    downloadHtml: "Download HTML",
+    failedStep: "Failed step",
+    rootCause: "Root cause",
+    divergence: "Divergence",
+    repairSuggestions: "Repair suggestions",
+    dataMetrics: "Data metrics",
+    divergenceAnalysis: "Divergence analysis",
+    modelAnalysisResult: "Model analysis result",
   },
 
   // Workspace

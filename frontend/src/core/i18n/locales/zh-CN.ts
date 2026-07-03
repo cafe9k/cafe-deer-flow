@@ -180,6 +180,7 @@ export const zhCN: Translations = {
     recentChats: "最近的对话",
     demoChats: "演示对话",
     agents: "智能体",
+    reportCompare: "报告对比",
     agentsDisabledTooltip: "功能未启用",
   },
 
@@ -233,6 +234,30 @@ export const zhCN: Translations = {
   breadcrumb: {
     workspace: "工作区",
     chats: "对话",
+    reportCompare: "报告对比",
+  },
+
+  reportCompare: {
+    title: "Midscene 报告对比",
+    description:
+      "上传成功/失败报告 zip，或填写线程内 /mnt/user-data 路径，生成分叉点、根因和修复建议。",
+    inputTitle: "输入报告",
+    compareArchive: "对比目录 zip",
+    successArchive: "成功报告 zip",
+    failureArchive: "失败报告 zip",
+    optionsTitle: "运行选项",
+    modelAnalysis: "模型辅助分析",
+    start: "开始对比",
+    running: "正在对比",
+    failed: "对比失败",
+    downloadHtml: "下载 HTML",
+    failedStep: "失败步骤",
+    rootCause: "根因",
+    divergence: "分叉点",
+    repairSuggestions: "修复建议",
+    dataMetrics: "数据指标",
+    divergenceAnalysis: "分叉点分析",
+    modelAnalysisResult: "模型分析结果",
   },
 
   // Workspace
