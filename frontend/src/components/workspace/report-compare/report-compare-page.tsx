@@ -12,7 +12,6 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import {
   WorkspaceBody,
@@ -39,13 +38,8 @@ function createLocalThreadId() {
 export function ReportComparePage() {
   const { t } = useI18n();
   const [threadId] = useState(createLocalThreadId);
-  const [compareArchive, setCompareArchive] = useState<File | null>(null);
   const [successArchive, setSuccessArchive] = useState<File | null>(null);
   const [failureArchive, setFailureArchive] = useState<File | null>(null);
-  const [compareDir, setCompareDir] = useState("");
-  const [successDir, setSuccessDir] = useState("");
-  const [failureDir, setFailureDir] = useState("");
-  const [runModelAnalysis, setRunModelAnalysis] = useState(true);
   const [result, setResult] = useState<ReportCompareJobResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const createJob = useCreateReportCompareJob(threadId);
@@ -56,19 +50,8 @@ export function ReportComparePage() {
   }, [t.reportCompare.title, t.pages.appName]);
 
   const canSubmit = useMemo(
-    () =>
-      !!compareArchive ||
-      (!!successArchive && !!failureArchive) ||
-      !!compareDir.trim() ||
-      (!!successDir.trim() && !!failureDir.trim()),
-    [
-      compareArchive,
-      successArchive,
-      failureArchive,
-      compareDir,
-      successDir,
-      failureDir,
-    ],
+    () => !!successArchive && !!failureArchive,
+    [successArchive, failureArchive],
   );
 
   async function handleSubmit() {
@@ -76,27 +59,19 @@ export function ReportComparePage() {
     setResult(null);
     try {
       const input: ReportCompareInput = {};
-      if (compareArchive) {
-        const uploaded = await uploadFiles(threadId, [compareArchive]);
-        input.compare_archive = uploaded.files[0]?.virtual_path;
-      } else if (successArchive && failureArchive) {
+      if (successArchive && failureArchive) {
         const uploaded = await uploadFiles(threadId, [
           successArchive,
           failureArchive,
         ]);
         input.success_archive = uploaded.files[0]?.virtual_path;
         input.failure_archive = uploaded.files[1]?.virtual_path;
-      } else if (compareDir.trim()) {
-        input.compare_dir = compareDir.trim();
-      } else {
-        input.success_dir = successDir.trim();
-        input.failure_dir = failureDir.trim();
       }
 
       const response = await createJob.mutateAsync({
         input,
         options: {
-          run_model_analysis: runModelAnalysis,
+          run_model_analysis: true,
           generate_html: true,
           max_search_depth: 3,
         },
@@ -133,59 +108,21 @@ export function ReportComparePage() {
                     {t.reportCompare.inputTitle}
                   </h2>
                 </div>
-                <div className="grid gap-4 md:grid-cols-3">
-                  <FileInput
-                    label={t.reportCompare.compareArchive}
-                    file={compareArchive}
-                    onFile={setCompareArchive}
-                    disabled={!!successArchive || !!failureArchive}
-                  />
+                <div className="grid gap-4 md:grid-cols-2">
                   <FileInput
                     label={t.reportCompare.successArchive}
                     file={successArchive}
                     onFile={setSuccessArchive}
-                    disabled={!!compareArchive}
                   />
                   <FileInput
                     label={t.reportCompare.failureArchive}
                     file={failureArchive}
                     onFile={setFailureArchive}
-                    disabled={!!compareArchive}
-                  />
-                </div>
-                <div className="grid gap-3 md:grid-cols-3">
-                  <Input
-                    placeholder="/mnt/user-data/uploads/compare"
-                    value={compareDir}
-                    onChange={(event) => setCompareDir(event.target.value)}
-                    disabled={!!compareArchive || !!successArchive}
-                  />
-                  <Input
-                    placeholder="/mnt/user-data/uploads/success"
-                    value={successDir}
-                    onChange={(event) => setSuccessDir(event.target.value)}
-                    disabled={!!compareArchive || !!compareDir.trim()}
-                  />
-                  <Input
-                    placeholder="/mnt/user-data/uploads/failure"
-                    value={failureDir}
-                    onChange={(event) => setFailureDir(event.target.value)}
-                    disabled={!!compareArchive || !!compareDir.trim()}
                   />
                 </div>
               </div>
 
-              <div className="bg-background flex flex-col gap-4 rounded-lg border p-4">
-                <h2 className="text-sm font-semibold">
-                  {t.reportCompare.optionsTitle}
-                </h2>
-                <label className="flex items-center justify-between gap-3 text-sm">
-                  <span>{t.reportCompare.modelAnalysis}</span>
-                  <Switch
-                    checked={runModelAnalysis}
-                    onCheckedChange={setRunModelAnalysis}
-                  />
-                </label>
+              <div className="flex flex-col justify-end">
                 <Button onClick={handleSubmit} disabled={!canSubmit || busy}>
                   <PlayIcon />
                   {busy ? t.reportCompare.running : t.reportCompare.start}
