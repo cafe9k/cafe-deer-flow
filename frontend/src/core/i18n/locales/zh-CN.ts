@@ -240,15 +240,12 @@ export const zhCN: Translations = {
   reportCompare: {
     title: "Midscene 报告对比",
     description:
-      "上传成功/失败报告 zip，或填写线程内 /mnt/user-data 路径，生成分叉点、根因和修复建议。",
+      "上传成功/失败报告 zip，生成分叉点、根因和修复建议。",
     inputTitle: "输入报告",
-    compareArchive: "对比目录 zip",
     successArchive: "成功报告 zip",
     failureArchive: "失败报告 zip",
-    optionsTitle: "运行选项",
-    modelAnalysis: "模型辅助分析",
-    start: "开始对比",
-    running: "正在对比",
+    start: "开始分析",
+    running: "正在分析",
     failed: "对比失败",
     downloadHtml: "下载 HTML",
     failedStep: "失败步骤",

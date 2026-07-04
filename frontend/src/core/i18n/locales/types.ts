@@ -183,11 +183,8 @@ export interface Translations {
     title: string;
     description: string;
     inputTitle: string;
-    compareArchive: string;
     successArchive: string;
     failureArchive: string;
-    optionsTitle: string;
-    modelAnalysis: string;
     start: string;
     running: string;
     failed: string;

@@ -254,15 +254,12 @@ export const enUS: Translations = {
   reportCompare: {
     title: "Midscene Report Compare",
     description:
-      "Upload success/failure report zip files or provide /mnt/user-data paths to generate divergence, root cause, and repair suggestions.",
+      "Upload success/failure report zip files to generate divergence, root cause, and repair suggestions.",
     inputTitle: "Report input",
-    compareArchive: "Compare directory zip",
     successArchive: "Success report zip",
     failureArchive: "Failure report zip",
-    optionsTitle: "Run options",
-    modelAnalysis: "Model-assisted analysis",
-    start: "Start compare",
-    running: "Comparing",
+    start: "Start analysis",
+    running: "Analyzing",
     failed: "Compare failed",
     downloadHtml: "Download HTML",
     failedStep: "Failed step",
