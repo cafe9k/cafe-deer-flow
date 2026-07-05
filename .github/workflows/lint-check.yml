@@ -57,20 +57,10 @@ jobs:
           cd frontend
           pnpm install --frozen-lockfile
 
-      - name: Check frontend formatting
+      - name: Run frontend checks
         run: |
           cd frontend
-          pnpm format
-
-      - name: Run frontend linting
-        run: |
-          cd frontend
-          pnpm lint
-
-      - name: Check TypeScript types
-        run: |
-          cd frontend
-          pnpm typecheck
+          pnpm check
 
       - name: Build frontend
         run: |

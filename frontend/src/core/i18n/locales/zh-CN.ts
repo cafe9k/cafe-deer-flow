@@ -239,8 +239,7 @@ export const zhCN: Translations = {
 
   reportCompare: {
     title: "Midscene 报告对比",
-    description:
-      "上传成功/失败报告 zip，生成分叉点、根因和修复建议。",
+    description: "上传成功/失败报告 zip，生成分叉点、根因和修复建议。",
     inputTitle: "输入报告",
     successArchive: "成功报告 zip",
     failureArchive: "失败报告 zip",
