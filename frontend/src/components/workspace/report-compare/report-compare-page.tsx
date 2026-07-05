@@ -100,7 +100,7 @@ export function ReportComparePage() {
               </p>
             </section>
 
-            <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_320px]">
+            <section className="flex flex-col gap-4">
               <div className="bg-background flex flex-col gap-4 rounded-lg border p-4">
                 <div className="flex items-center gap-2">
                   <FileArchiveIcon className="size-4" />
