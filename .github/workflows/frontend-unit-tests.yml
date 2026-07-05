@@ -1,8 +1,6 @@
 name: Frontend Unit Tests
 
 on:
-  push:
-    branches: [ 'main', '2.0.x-dev' ]
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
 
@@ -26,7 +24,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: "22"
 
       - name: Enable Corepack
         run: corepack enable
